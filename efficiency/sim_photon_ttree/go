@@ -1,0 +1,1 @@
+./emc_analysis /lustre/hebe/hades/dstsim/mar19/ag1580ag/gen4/bmax8/no_enhancement_gcalor/root/Ag_Ag_1580MeV_2000evts_10010_10010_1_dst_mar19.root ./test.root 10000
