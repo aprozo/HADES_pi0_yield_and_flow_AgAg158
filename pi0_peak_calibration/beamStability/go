@@ -1,0 +1,1 @@
+./emc_diphoton_ana  /lustre/hades/user/prozorov/mar19/systematic_uncertainty/exp_to_photons/3200A/997.root ./test.root 100

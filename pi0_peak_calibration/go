@@ -1,0 +1,1 @@
+./emc_diphoton_ana  /lustre/hebe/hades/user/prozorov/mar19/photon_ttrees_energy100/day075/photon_ttree_day075.root,/lustre/hebe/hades/user/prozorov/mar19/photon_ttrees_energy100/day081/photon_ttree_day081.root ./test.root 100
