@@ -1,0 +1,231 @@
+#include <iostream>
+#include <map>
+#include <stdio.h>
+#include "TH3F.h"
+#include "TH1.h"
+#include "TH2.h"
+#include "TFile.h"
+#include "TCanvas.h"
+#include "TLegend.h"
+#include "TStyle.h"
+#include "TLatex.h"
+#include "TColor.h"
+#include "TPad.h"
+#include "TTree.h"
+#include "TChain.h"
+
+
+using namespace std;
+/*
+typedef struct {
+  Float_t mult_tofrpc,cent_bin,charge,emc_match,sector,emc_cell,theta_rpc,phi_rpc,mom,beta,emc_size,emc_energy,emc_time,emc_mq,emc_path,mm_qa,within_resolution,beamtime;} 
+PID_exp_lepton;
+
+typedef struct {
+  Float_t imppar,cent_bin,charge,emc_match,sector,emc_cell,theta_rpc,phi_rpc,mom,beta,mom_kine,cflag,emc_size,emc_energy,emc_time,emc_energy_corr,emc_mq,emc_path,mm_qa,geantid,within_resolution:emc_energy_centr;} 
+PID_sim_lepton;
+
+typedef struct {
+  Float_t imppar,cent_bin,emc_hit,sector,emc_cell,theta_kine,phi_kine,mom_kine,emc_size,emc_energy,emc_time,emc_beta,emc_energy_corr,emc_to_vert_dist,within_resolution,geantid,matchedCells,matchedPart;}
+PID_sim_photon;
+
+static PID_exp_lepton pid_exp_lepton;
+static PID_sim_lepton pid_sim_lepton;
+static PID_sim_photon pid_sim_photon;
+*/
+enum  {sim_photon, sim_lepton, exp_lepton,        nFiles};
+enum  {electron, positron, all_leptons, photon,   nParticle};
+
+Int_t particle_color[3]={kAzure+1,kGreen+1,kBlack};
+
+void setup_hist_draw(TH1 * hist,const Int_t & particle){
+  hist->SetMarkerStyle(20);    
+  hist->SetLineColor  (particle_color[particle]); 
+  hist->SetMarkerColor(particle_color[particle]);
+  hist->SetLineWidth(3);
+  hist->GetYaxis()->SetTitle("Eff");
+  //hist->Smooth();
+  hist->GetYaxis()->SetRangeUser(0,1);
+  if(hist->GetNbinsX()==1200){
+    hist->GetXaxis()->SetTitle("sector*200+cell");
+    hist->GetXaxis()->SetRangeUser(200,1200);
+  }
+  if(hist->GetNbinsX()==40){
+    hist->GetXaxis()->SetTitle("theta,deg");
+    hist->GetXaxis()->SetRangeUser(10,50);
+  }
+  else if (hist->GetNbinsX()==100){
+    hist->GetXaxis()->SetTitle("mom, MeV");
+    hist->GetXaxis()->SetRangeUser(0,1200);    
+    }   
+}
+
+void SmoothX(TH2 * hist){
+  
+  Int_t nbinx=hist->GetNbinsX();
+  Int_t nbiny=hist->GetNbinsY();
+  //hist->GetXaxis()->SetRangeUser(150,600);
+  for (Int_t i=1;i<nbiny;i++){
+    TH1 * temp=hist->ProjectionX("temp",i,i);
+    temp->Smooth(1,"R");
+    for( Int_t j=1;j<nbinx;j++){
+      hist->SetBinContent(j,i,temp->GetBinContent(j));
+    }
+  }
+    
+  }
+  
+
+
+void setup_hist_draw(TH2 * hist){
+
+  hist->GetZaxis()->SetTitle("Eff");
+  hist->GetYaxis()->SetTitle("sector*200+cell");
+  hist->GetXaxis()->SetTitle("mom, MeV");
+     
+    
+}
+
+void ttree_make_plots_efficiency_cells(void)
+{ gStyle->SetOptStat(0);         // switch off stat box
+  Int_t nEvents =10000000;
+  TFile *fileIn[3];
+  const int nParams=2;
+  
+  fileIn[sim_photon] = new TFile("/u/prozorov/mar19/EfficiencyEcal/photon_ttree_sim_gen3_29Jul.root","Read");
+  fileIn[sim_lepton] = new TFile("/u/prozorov/mar19/EfficiencyEcal/lepton_ttree_sim_gen3_x6stat_06Aug.root");
+  fileIn[exp_lepton] = new TFile("/u/prozorov/mar19/EfficiencyEcal/exp_leptons_ttree_all_days.root" ,"Read");
+  
+  TChain *treeIn[nFiles];
+  for (Int_t f=0;f<nFiles;f++)  {   treeIn[f]=(TChain*)fileIn[f]->Get("nt");}
+
+  TString first_par="";
+  TString second_par="sector*200+emc_cell"; 
+
+  
+  TString params    [nFiles][nParams] ={{"mom_kine",second_par},{"mom",second_par},{"mom",second_par}};
+  TString params2d  [nFiles] ={second_par+":mom_kine",second_par+":mom",second_par+":mom"};  
+  TString param_name[nParams] ={"_mom","_"+second_par};
+  Int_t   param_bins[nParams] ={ 100, 1200};
+  Int_t   param_low [nParams] ={ 0, 0};
+  Int_t   param_high[nParams] ={ 1000, 1200};
+
+  TString fileNames[nFiles]={"sim_photon","sim_lepton","exp_lepton"};
+  TCanvas *can[nParams];
+  TCanvas *can2d[nFiles];
+
+  
+ TFile *out= new TFile("efficiencyECAL_cells.root","RECREATE");
+ TH1F *denominator[nParams][nFiles];
+ TH1F *nominator[nParams][nFiles];
+ TH2F *denominator2d[nFiles];
+ TH2F *nominator2d[nFiles];
+ for (Int_t par=0;par<nParams;par++)  {
+   can[par] = new TCanvas(params[1][par],params[1][par],1200,1000);
+   for (Int_t f=0;f<nFiles;f++)  {
+     TString hist_name=fileNames[f]+param_name[par]+"_denom";
+     denominator[par][f]=new TH1F(hist_name,hist_name,param_bins[par],param_low[par],param_high[par]);
+     hist_name=fileNames[f]+param_name[par]+"_efficiency";
+     nominator[par][f]=new TH1F(hist_name,hist_name,param_bins[par],param_low[par],param_high[par]);
+   }
+ }
+ for (Int_t f=0;f<nFiles;f++)  {
+  can2d[f] = new TCanvas(fileNames[f],fileNames[f],1200,1000);
+  TString hist_name=fileNames[f]+"_mom_theta_denom";
+  denominator2d[f]=new TH2F(hist_name,hist_name,param_bins[0],param_low[0],param_high[0],param_bins[1],param_low[1],param_high[1]);
+  hist_name=fileNames[f]+"_mom_theta_efficiency";
+  nominator2d[f]=new TH2F(hist_name,hist_name,param_bins[0],param_low[0],param_high[0],param_bins[1],param_low[1],param_high[1]);
+ }
+
+  
+  ///////////////////////////////////////////////
+  ///////////
+  TString general_cuts="cent_bin<5&&emc_cell>9";
+  
+  TString gen_cuts[nFiles];
+  gen_cuts[sim_photon]="mom_kine>60&&theta_kine>17&&theta_kine<45";
+  gen_cuts[exp_lepton]="mom>60&&theta_rpc>=15&&theta_rpc<=45";  
+  gen_cuts[sim_lepton]="mom>60&&theta_rpc>=15&&theta_rpc<=45";          //same as in the experiment  
+  //gen_cuts[sim_lepton]="pid.mom>20&&pid.theta_rpc>12&&pid.theta_rpc<45&&((pid.cflag&64)==64)";//maximum possible efficiency
+
+  
+  /////////////////////
+  //-----------------//
+  /////////////////////
+  
+  TString general_emc_cuts="within_resolution>0";
+  //cuts for leptons and photons separately///////////////////////
+  /////
+  TString emc_cuts[nFiles];
+  emc_cuts[sim_photon]="(matchedCells==0)&&(matchedPart==0)&&emc_beta>0.95  && within_resolution<5";
+  emc_cuts[exp_lepton]="emc_match && emc_mq <2 && within_resolution<6.9 && emc_path>0";  
+  emc_cuts[sim_lepton]="emc_match && emc_mq <2 && within_resolution<5   && emc_path>0";  //same as in the experiment
+  //emc_cuts[sim_lepton]="pid.true_emc_hit_track";                                 //maximum possible efficiency
+  
+  
+  /////////////////////////////////////////////// 
+  for (Int_t par=0;par<nParams;par++)  {
+     can[par]->cd();
+     for (Int_t f=0;f<nFiles;f++)  {
+      TString hist_name=fileNames[f]+param_name[par]+"_denom";
+      TString drawString=params[f][par]+">>"+ hist_name;
+      TString cuts=general_cuts+"&&"+gen_cuts[f];
+      treeIn[f]->Draw(drawString,cuts,"",nEvents);
+      
+      hist_name=fileNames[f]+param_name[par]+"_efficiency";
+      drawString=params[f][par]+">>"+ hist_name;
+      cuts=general_cuts+"&&"+gen_cuts[f]+"&&"+general_emc_cuts+"&&"+emc_cuts[f];
+      treeIn[f]->Draw(drawString,cuts,"",nEvents);
+       
+      nominator[par][f]->Divide(denominator[par][f]);     
+      setup_hist_draw(nominator[par][f],f);     
+    }
+  }
+
+  
+for (Int_t f=0;f<nFiles;f++)  {
+  can2d[f]->cd();
+      TString hist_name=fileNames[f]+"_mom_theta_denom";
+      TString drawString=params2d[f]+">>"+ hist_name;
+      TString cuts=general_cuts+"&&"+gen_cuts[f];
+      treeIn[f]->Draw(drawString,cuts,"",nEvents);
+      
+      hist_name=fileNames[f]+"_mom_theta_efficiency";
+      drawString=params2d[f]+">>"+ hist_name;
+      cuts=general_cuts+"&&"+gen_cuts[f]+"&&"+general_emc_cuts+"&&"+emc_cuts[f];
+      treeIn[f]->Draw(drawString,cuts,"",nEvents);
+
+       
+      nominator2d[f]->Divide(denominator2d[f]);;
+
+      
+      setup_hist_draw(nominator2d[f]);
+ }
+  
+  
+ 
+TLegend *leg=new TLegend(0.27,0.10,0.52,0.26);
+ leg->SetEntrySeparation(0.1);
+  for (Int_t f=0;f<nFiles;f++)  {
+ leg->AddEntry(nominator[0][f],fileNames[f],"lep");
+  }
+   
+ for (Int_t par=0;par<nParams;par++)  {
+   can[par]->cd();
+   for (Int_t f=0;f<nFiles;f++)  {
+     nominator[par][f]->Draw("same");
+   }
+   leg->Draw("same");
+ }
+
+ 
+for (Int_t f=0;f<nFiles;f++)  {
+     can2d[f]->cd();
+     nominator2d[f]->Draw("colz"); 
+}
+
+ out->cd();
+ out->GetList()->Write();
+  //out->Close();
+ 
+}
