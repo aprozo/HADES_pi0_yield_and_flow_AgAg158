@@ -22,7 +22,3 @@ urqmd_to_pt_y, embedding_to_effacc: reference and eff×acc
 bash run.sh parameters.conf            # one cut set (set RUN_* flags inside)
 bash run_all_parameters_sets.sh        # all sets in parameters_files/ + ana_results
 ```
-Paths to DSTs and data are set in `parameters.conf`. Scripts still contain absolute `/u/prozorov`, `/lustre` paths.
-
-## Environment
-GSI virgo, hydra2 (`defall.sh`), ROOT 6, Slurm.
