@@ -5,6 +5,7 @@ USES_ORACLE   := yes
 USES_GFORTRAN := no
 
 include $(HADDIR)/hades.def.mk
+LIBS := $(patsubst -ltirpc,-l:libtirpc.so.3,$(LIBS))  # Debian 12 and 13
 
 HYDRA_LIBS    += -lDst
 CPP_FLAGS     += -std=c++17
