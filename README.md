@@ -12,6 +12,9 @@ Neutral pion yields and flow (v1, v2) from diphotons, compared to charged pions 
 | `dst_analysis/` | DST tasks: embedding eff×acc, lepton β cut, event plane |
 | `correction_data/` | inputs for the analysis (`PATH_TO_CORRECTION_DATA`) |
 | `analysis/` | main pipeline + systematics |
+| `acceptance/pluto_pi0gg/` | Pluto thermal π⁰→γγ, geometric acceptance |
+| `simulation/rpc_energy_loss/` | e± energy loss in RPC → `corretion_energy_ag1650ag.root` |
+| `simulation/iqmd_hgeant_dst/` | iQMD → HGeant → sim DST chain (from S. Harabasz, M. Gumberidze) |
 
 ## Pipeline (`analysis/`)
 ```
