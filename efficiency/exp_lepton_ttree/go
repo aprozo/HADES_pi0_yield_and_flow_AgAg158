@@ -1,2 +1,2 @@
-./emc_analysis /lustre/hebe/hades/dst/mar19/gen5/ag158ag/3200A/087/root/be1908700012703.hld_dst_mar19_accepted.root ./test.root 50000
-#./emc_analysis /lustre/hebe/hades/dstsim/mar19/ag1580ag/gen5/bmax8/no_enhancement_gcalor/root/Ag_Ag_1580MeV_2000evts_1000_1000_1_dst_mar19.root ./test.root 50000
+./emc_analysis /lustre/hades/dst/mar19/gen5/ag158ag/3200A/087/root/be1908700012703.hld_dst_mar19_accepted.root ./test.root 50000
+#./emc_analysis /lustre/hades/dstsim/mar19/ag1580ag/gen5/bmax8/no_enhancement_gcalor/root/Ag_Ag_1580MeV_2000evts_1000_1000_1_dst_mar19.root ./test.root 50000

@@ -26,11 +26,11 @@ day=${1}
 acc_or_rej=${2}
 sys=${3}
 
-submmissionbase=/lustre/hebe/hades/user/${user}/sub/mar19/gen5/calibration
+submmissionbase=/lustre/hades/user/${user}/sub/mar19/gen5/calibration
 submissiondir=${submmissionbase}/loopDST
 nFilesPerJob=50 # for SIM or EXP extract
 jobscript=${submissiondir}/jobScript_SL.sh                        # exec script (full path, call without dot, set it executable!)
-outputdir=/lustre/hebe/hades/user/${user}/mar19/leptonttree/gen5/${sys}_0${day} #${day}   # outputdir for files AND logFiles
+outputdir=/lustre/hades/user/${user}/mar19/leptonttree/gen5/${sys}_0${day} #${day}   # outputdir for files AND logFiles
 pathoutputlog=${outputdir}/out                                  # protocol from batch farm for each file
 filename=${acc_or_rej}
 jobarrayFile="jobarray_${sys}_0${day}_${acc_or_rej}.dat"
@@ -39,7 +39,7 @@ filelist=lists/day_0${day}_${sys}_${acc_or_rej}.list
 #
 # nFilesPerJob=5 # for SIM or EXP extract
 # jobscript=${submissiondir}/jobScript_SL.sh                        # exec script (full path, call without dot, set it executable!)
-# outputdir=/lustre/hebe/hades/user/${user}/mar19/ChargedParticlesTime/   # outputdir for files AND logFiles
+# outputdir=/lustre/hades/user/${user}/mar19/ChargedParticlesTime/   # outputdir for files AND logFiles
 # pathoutputlog=${outputdir}/out                                  # protocol from batch farm for each file
 # filename=chargedParticles
 # jobarrayFile="jobarray_chargedParticles.dat"
@@ -52,7 +52,8 @@ filelist=lists/day_0${day}_${sys}_${acc_or_rej}.list
 
 
 
-par1=/cvmfs/hades.gsi.de/install/5.34.34/hydra2-5.6b/defall.sh  # optional par1 : environment script
+par1=/cvmfs/hadessoft.gsi.de/install/debian12/6.36.02/hydra2-7.3/defall.sh  # optional par1 : environment script
+export SLURM_SINGULARITY_CONTAINER=/cvmfs/vae.gsi.de/vae25/containers/user_container-production.sif  # Debian 12 container for debian12 hydra
 par2=${submissiondir}/loopDST                          # optional par2 : executable
 par3=""                                                         # optional par3 : input file list
 par4=${outputdir}                                               # optional par4 : outputfile (part number will be appended (_num.root))

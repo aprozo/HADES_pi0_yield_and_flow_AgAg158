@@ -104,7 +104,7 @@ void correctNonlinearity(Float_t & energy)
 Int_t photons_to_histograms(TString inFile, TString outputFile, Int_t nevt)
 {
   TFile * fCorr = new TFile(
-    "/lustre/hebe/hades/user/prozorov/mar19/systematic_uncertainty/correction_data/NonlinearityPi0PeakEnergyCorrection.root", "READ");
+    "/lustre/hades/user/prozorov/mar19/systematic_uncertainty/correction_data/NonlinearityPi0PeakEnergyCorrection.root", "READ");
 
   hEnergyCorrection = (TH1D *) fCorr->Get("hEnergyCorrection");
 
@@ -157,10 +157,10 @@ Int_t photons_to_histograms(TString inFile, TString outputFile, Int_t nevt)
 
   TH2F * betaEnergyMean[nBeamBins];
   TH2F * betaEnergySigma[nBeamBins];
-  // if (isSim) betaCuts = new TFile("/lustre/hebe/hades/user/prozorov/mar19/systematic_uncertainty/correction_data/betaBeamMeanSigmaSim.root", "Read");
+  // if (isSim) betaCuts = new TFile("/lustre/hades/user/prozorov/mar19/systematic_uncertainty/correction_data/betaBeamMeanSigmaSim.root", "Read");
   // else
   betaCuts = new TFile(
-    "/lustre/hebe/hades/user/prozorov/mar19/systematic_uncertainty/correction_data/betaBeamMeanSigma.root", "Read");
+    "/lustre/hades/user/prozorov/mar19/systematic_uncertainty/correction_data/betaBeamMeanSigma.root", "Read");
   for (Int_t iBeamBin = 0; iBeamBin < 3; iBeamBin++) {
     betaEnergyMean[iBeamBin]  = (TH2F *) betaCuts->Get(Form("beam%ibetaEnergyMean", iBeamBin));
     betaEnergySigma[iBeamBin] = (TH2F *) betaCuts->Get(Form("beam%ibetaEnergySigma", iBeamBin));

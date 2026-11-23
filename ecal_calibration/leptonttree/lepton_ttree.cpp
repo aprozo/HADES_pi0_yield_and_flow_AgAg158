@@ -149,6 +149,7 @@ Int_t analysis(TString infileList, TString outfile, Int_t nEvents = 1000000)
   // -------------------------------------------------
   // create loop obejct and hades
   HLoop loop(kTRUE);
+  gHades->setBeamTimeID(HADES::kMar19);
 
   // -------------------------------------------------
 

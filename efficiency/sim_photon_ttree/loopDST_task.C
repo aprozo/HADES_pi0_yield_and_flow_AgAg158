@@ -53,6 +53,7 @@ Bool_t isInAcc_mar19(const Float_t & theta,  const Float_t & phi) {
 HLoop* CreateLoop(TString inputfile)
 {
 	HLoop* loop = new HLoop(kTRUE);
+	gHades->setBeamTimeID(HADES::kMar19);
 	Bool_t ret =kFALSE;
 	if(inputfile.Contains(",")) {
 		ret = loop->addMultFiles(inputfile);         // file1,file2,file3

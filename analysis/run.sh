@@ -38,7 +38,7 @@ list_sim=sim
 #test
 #sim
 WHOAMI=`whoami`
-if [[ -d /lustre/hebe/hades/user ]]
+if [[ -d /lustre/hades/user ]]
     then
     is_slurm_cluster=1
     else
@@ -114,7 +114,7 @@ path_local_exp_to_photons=$path_local_output_full/exp_to_photons
 #-------------------------------------------------------------------
 if [[ $is_slurm_cluster -eq 1 ]]
 then
-    path_slurm=/lustre/hebe/hades/user/${WHOAMI}/mar19/systematic_uncertainty
+    path_slurm=/lustre/hades/user/${WHOAMI}/mar19/systematic_uncertainty
     echo "Output folder on SLURM cluster: " ${path_slurm}
     if [[ ! -d ${path_slurm} && $is_slurm_cluster -eq 1 ]]
     then

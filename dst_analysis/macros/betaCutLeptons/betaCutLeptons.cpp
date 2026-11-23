@@ -42,7 +42,7 @@ Int_t betaCutLeptons(void)
 	TFile * out = new TFile("betCutExpSimRatio.root", "RECREATE");
 	out->cd();
 
-	TString path2corrections = "/lustre/hebe/hades/user/prozorov/mar19/systematic_uncertainty/correction_data/";
+	TString path2corrections = "/lustre/hades/user/prozorov/mar19/systematic_uncertainty/correction_data/";
 	TFile * FileEff = new TFile(Form(path2corrections+"embeddingAccEffMatrices.root"), "Read");
 	photon_eff[0] = (TH1F *) FileEff->Get("cent0_correctionMomEmbedding");
 	photon_eff[1] = (TH1F *) FileEff->Get("cent1_correctionMomEmbedding");
@@ -92,7 +92,7 @@ Int_t betaCutLeptons(void)
 
 	PID pid;
 	TChain * ntExp = new TChain("nt");
-	ntExp->Add("/lustre/hebe/hades/user/prozorov/mar19/gen5/leptonsBetaCut/betaCutLeptonsExp.root");
+	ntExp->Add("/lustre/hades/user/prozorov/mar19/gen5/leptonsBetaCut/betaCutLeptonsExp.root");
 	ntExp->SetBranchAddress("pid", &pid);
 
 	for (Int_t iEntry = 0; iEntry < ntExp->GetEntries(); ++iEntry) {
@@ -105,7 +105,7 @@ Int_t betaCutLeptons(void)
 
 
 	TChain * ntSim = new TChain("nt");
-	ntSim->Add("/lustre/hebe/hades/user/prozorov/mar19/gen5/leptonsBetaCut/betaCutLeptonsSim.root");
+	ntSim->Add("/lustre/hades/user/prozorov/mar19/gen5/leptonsBetaCut/betaCutLeptonsSim.root");
 	ntSim->SetBranchAddress("pid", &pid);
 
 	for (Int_t iEntry = 0; iEntry < ntSim->GetEntries(); ++iEntry) {

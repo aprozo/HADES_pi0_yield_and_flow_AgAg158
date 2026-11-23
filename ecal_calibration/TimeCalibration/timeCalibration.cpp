@@ -69,7 +69,7 @@ public:
   {
     TChain * nt = new TChain(Form("Sector%iCell%i", sector, cell));
 
-    nt->Add(Form("/lustre/hebe/hades/user/prozorov/mar19/leptonttree/splitted/tree_Sector%i_Cell%i.root", sector,
+    nt->Add(Form("/lustre/hades/user/prozorov/mar19/leptonttree/splitted/tree_Sector%i_Cell%i.root", sector,
       cell));
 
     PID pid;

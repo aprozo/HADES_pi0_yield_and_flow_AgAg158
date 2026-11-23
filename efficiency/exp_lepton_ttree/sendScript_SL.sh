@@ -31,14 +31,15 @@ user=$(whoami)
 currentDir=$(pwd)
 day=${1}
 
-submmissionbase=/lustre/hebe/hades/user/${user}/sub/EffAcc
+submmissionbase=/lustre/hades/user/${user}/sub/EffAcc
 submissiondir=${submmissionbase}/exp_lepton_ttree
  nFilesPerJob=25 # for SIM or EXP extract
     jobscript=${submissiondir}/jobScript_SL.sh                        # exec script (full path, call without dot, set it executable!)
-    outputdir=/lustre/hebe/hades/user/${user}/mar19/effacc_lepton_ttree/day0${day}  # outputdir for files AND logFiles
+    outputdir=/lustre/hades/user/${user}/mar19/effacc_lepton_ttree/day0${day}  # outputdir for files AND logFiles
 pathoutputlog=${outputdir}/out                                  # protocol from batch farm for each file
      filename=lepton_ttree_gen5                        # filename of log file if nFilesPerJob > 1 (partnumber will be appended)
-par1=/cvmfs/hadessoft.gsi.de/install/debian10/6.24.02/hydra2-5.6b/defall.sh     # optional par1 : environment script
+par1=/cvmfs/hadessoft.gsi.de/install/debian12/6.36.02/hydra2-7.3/defall.sh     # optional par1 : environment script
+export SLURM_SINGULARITY_CONTAINER=/cvmfs/vae.gsi.de/vae25/containers/user_container-production.sif  # Debian 12 container for debian12 hydra
 #par1=/lustre/nyx/hades/user/rlalik/emc/profile.sh   # optional par1 : environment script
 par2=${submissiondir}/emc_analysis                               # optional par2 : executable
 par3=""                                                         # optional par3 : input file list
@@ -53,7 +54,7 @@ filelist=${currentDir}/lists/day_0${day}_ag158ag_3200A_accepted.list ##
 
 
 if [ "$day" = "sim" ]; then
-      outputdir=/lustre/hebe/hades/user/${user}/mar19/effacc_lepton_ttree/sim
+      outputdir=/lustre/hades/user/${user}/mar19/effacc_lepton_ttree/sim
     filelist=${currentDir}/lists/gen5_sim_ag1580ag.list
     filename=lepton_ttree_gen5_sim
     jobarrayFile="jobarray_sim.dat"

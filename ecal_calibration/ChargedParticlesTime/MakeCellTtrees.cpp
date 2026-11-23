@@ -21,7 +21,7 @@ PID;
 void MakeCellTtrees()
 {
 
-	TString treeLocation ="/lustre/hebe/hades/user/prozorov/mar19/ChargedParticlesTime/";
+	TString treeLocation ="/lustre/hades/user/prozorov/mar19/ChargedParticlesTime/";
 	TChain * nt = new TChain("nt");
 	nt->Add(treeLocation+"chargedParticles.root");
 
@@ -63,7 +63,7 @@ void MakeCellTtrees()
 		for (Int_t iCell = 0; iCell < 163; ++iCell) {
       if(!isGoodCell(iSector,iCell))continue;
 			TFile * outfile =
-				new TFile(Form("/lustre/hebe/hades/user/prozorov/mar19/ChargedParticlesTime/splitted/tree_Sector%i_Cell%i.root",
+				new TFile(Form("/lustre/hades/user/prozorov/mar19/ChargedParticlesTime/splitted/tree_Sector%i_Cell%i.root",
 				               iSector, iCell), "RECREATE");
 			outfile->cd();
 			tree[iSector][iCell]->Write();

@@ -7,7 +7,7 @@ USES_GFORTRAN := no
 include $(HADDIR)/hades.def.mk
 
 HYDRA_LIBS    += -lDst
-CPP_FLAGS     += -std=c++14
+CPP_FLAGS     += -std=c++17
 
 .PHONY:  default
 default: clean build install

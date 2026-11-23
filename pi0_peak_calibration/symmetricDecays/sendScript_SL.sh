@@ -30,19 +30,20 @@
 user=$(whoami)
 currentDir=$(pwd)
 
-submmissionbase=/lustre/hebe/hades/user/${user}/sub/gen5a/
+submmissionbase=/lustre/hades/user/${user}/sub/gen5a/
 submissiondir=${submmissionbase}/symmetricDecays
 nFilesPerJob=10 # for SIM or EXP extract
 jobscript=${submissiondir}/jobScript_SL.sh                        # exec script (full path, call without dot, set it executable!)
-outputdir=/lustre/hebe/hades/user/${user}/mar19/diphotons/pi0PeakCalibration/symmetricDecays  # outputdir for files AND logFiles
+outputdir=/lustre/hades/user/${user}/mar19/diphotons/pi0PeakCalibration/symmetricDecays  # outputdir for files AND logFiles
 filename=MixAll                            # filename of log file if nFilesPerJob > 1 (partnumber will be appended)
 jobarrayFile="jobarray_exp.dat"
 #filelist=${currentDir}/photon_ttrees_gen5_day82.list # file list in local dir! not in submissiondir!!!
 filelist=${currentDir}/lists/photon_ttrees_gen5_pi0_peak_corrected.list # file list in local dir! not in submissiondir!!!
 
 
-par1=/cvmfs/hadessoft.gsi.de/install/debian10/6.24.02/hydra2-5.6c/defall.sh     # optional par1 : environment script
-#par1=/lustre/hebe/hades/user/rlalik/emc/profile.sh   # optional par1 : environment script
+par1=/cvmfs/hadessoft.gsi.de/install/debian12/6.36.02/hydra2-7.3/defall.sh     # optional par1 : environment script
+export SLURM_SINGULARITY_CONTAINER=/cvmfs/vae.gsi.de/vae25/containers/user_container-production.sif  # Debian 12 container for debian12 hydra
+#par1=/lustre/hades/user/rlalik/emc/profile.sh   # optional par1 : environment script
 par2=${submissiondir}/emc_diphoton_ana                               # optional par2 : executable
 par3=""                                                         # optional par3 : input file list
 par4=${outputdir}                                               # optional par4 : outputfile (part number will be appended (_num.root))

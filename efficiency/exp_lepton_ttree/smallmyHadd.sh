@@ -14,7 +14,7 @@ do
 done
 
 filename="exp_lepton_ttree_gen3_29Jul"
-path2files="/lustre/hebe/hades/user/prozorov/mar19/exp_lepton_ttree"
+path2files="/lustre/hades/user/prozorov/mar19/exp_lepton_ttree"
 
 
 for (( day=67; day<=88; day++ ))

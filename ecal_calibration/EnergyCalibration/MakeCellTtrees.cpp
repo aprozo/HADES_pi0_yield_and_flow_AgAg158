@@ -65,7 +65,7 @@ void MakeCellTtrees()
 	for (Int_t iSector = 0; iSector < 6; ++iSector) {
 		for (Int_t iCell = 0; iCell < 163; ++iCell) {
 			TFile * outfile =
-				new TFile(Form("/lustre/hebe/hades/user/prozorov/mar19/leptonttree/splitted/tree_Sector%i_Cell%i.root",
+				new TFile(Form("/lustre/hades/user/prozorov/mar19/leptonttree/splitted/tree_Sector%i_Cell%i.root",
 				               iSector, iCell), "RECREATE");
 			outfile->cd();
 			tree[iSector][iCell]->Write();

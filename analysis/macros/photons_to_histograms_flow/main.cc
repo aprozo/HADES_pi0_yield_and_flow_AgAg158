@@ -22,16 +22,16 @@ int main(int argc, char **argv)
     switch (argc)
     {
         case 3:
-            return photons_to_histograms(TString(argv[1]), TString(argv[2]), kTRUE);
+            return photons_to_histograms(TString(argv[1]), TString(argv[2]), kTRUE) ? 0 : 1;
             break;
         case 4:       // just inputfile name + nEvents
             isExperiment = argv[3];
-            return photons_to_histograms(TString(argv[1]), TString(argv[2]), atoi(isExperiment.Data())!=0);
+            return photons_to_histograms(TString(argv[1]), TString(argv[2]), atoi(isExperiment.Data())!=0) ? 0 : 1;
             break;
         case 5:       // inputfile name + nEvents + isExperiment
             isExperiment = argv[3];
             nEvents      = argv[4];
-            return photons_to_histograms(TString(argv[1]), TString(argv[2]), atoi(isExperiment.Data())!=0);
+            return photons_to_histograms(TString(argv[1]), TString(argv[2]), atoi(isExperiment.Data())!=0) ? 0 : 1;
             break;
         default:
             cerr<<"ERROR: photons_to_histograms() : WRONG NUMBER OF ARGUMENTS! TString infile="",TString outfile="", isExperiment=1, nevents=-1"<<std::endl;

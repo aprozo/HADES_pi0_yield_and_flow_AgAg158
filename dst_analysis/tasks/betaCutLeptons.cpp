@@ -161,6 +161,7 @@ Int_t ana(TString infileList, TString outputFile, Int_t nEvents = 1000000.)
   // -------------------------------------------------
 
   HLoop loop(kTRUE);// create HADES (needed if one wants to use gHades)
+  gHades->setBeamTimeID(HADES::kMar19);
 
   // -------------------------------------------------
   // reading input files and decalring containers
@@ -263,7 +264,7 @@ Int_t ana(TString infileList, TString outputFile, Int_t nEvents = 1000000.)
   // =============================================================================================//
   // =============================================================================================//
 
-  TString path2corrections = "/lustre/hebe/hades/user/prozorov/mar19/systematic_uncertainty/correction_data/";
+  TString path2corrections = "/lustre/hades/user/prozorov/mar19/systematic_uncertainty/correction_data/";
   if (readParams(path2corrections + "mar19EmcCalParNewEnergy.txt", ecalCellPars) > 0) return 3;
 
   if (setupEnergyCorrectionExp(path2corrections + "CorrFactorsPi0Peak.root") > 0) return 4;
@@ -317,7 +318,7 @@ Int_t ana(TString infileList, TString outputFile, Int_t nEvents = 1000000.)
 
   HParticleEvtChara evtChara;
   if (!evtChara.setParameterFile(
-      "/lustre/hebe/hades/user/bkardan/param/centrality_epcorr_mar19_ag158ag_3200A_glauber_gen5_pass3_2021_08.root"))
+      "/lustre/hades/user/bkardan/param/centrality_epcorr_mar19_ag158ag_3200A_glauber_gen5_pass3_2021_08.root"))
   {
     cout << "HParticleEvtChara: file not found!!! " << endl;
   }

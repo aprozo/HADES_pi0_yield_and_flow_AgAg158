@@ -9,6 +9,7 @@ Int_t analysis(TString infileList, TString outputFile, Int_t nev = 1000000.)
   TROOT dst_production("DstProductionApp", "Produce a DST File");
   Bool_t createHades = kTRUE;
   HLoop  loop(createHades); // create HADES (needed if one wants to use gHades)
+  gHades->setBeamTimeID(HADES::kMar19);
   Bool_t ret = kFALSE;
   if (infileList.Contains(",")) {
     ret = loop.addMultFiles(infileList); // file1,file2,file3
@@ -70,7 +71,7 @@ Int_t analysis(TString infileList, TString outputFile, Int_t nev = 1000000.)
   printf("nEntries = %i\n", nEntries);
   HParticleEvtChara evtChara;
   if (!evtChara.setParameterFile(
-      "/lustre/hebe/hades/user/bkardan/param/centrality_epcorr_mar19_ag158ag_3200A_glauber_gen5_pass3_2021_08.root"))
+      "/lustre/hades/user/bkardan/param/centrality_epcorr_mar19_ag158ag_3200A_glauber_gen5_pass3_2021_08.root"))
   {
     cout << "HParticleEvtChara: file not found!!! " << endl;
   }

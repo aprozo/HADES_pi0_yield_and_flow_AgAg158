@@ -181,6 +181,7 @@ Int_t loopDST_task(TString infileList, TString outfile, Int_t nEvents)
 	// -------------------------------------------------
 	// create loop obejct and hades
 	HLoop loop(kTRUE);
+	gHades->setBeamTimeID(HADES::kMar19);
 	// -------------------------------------------------
 	// -------------------------------------------------
 	// setup the spectrometer for filter tasks

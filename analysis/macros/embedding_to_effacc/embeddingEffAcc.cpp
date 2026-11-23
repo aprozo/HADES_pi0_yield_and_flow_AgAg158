@@ -99,6 +99,7 @@ struct Photon {
 Int_t ana(TString infileList, TString outputFile, Int_t nev = 1000000.)
 {
 	HLoop loop(kTRUE); // create HADES (needed if one wants to use gHades)
+	gHades->setBeamTimeID(HADES::kMar19);
 	Bool_t ret = kFALSE;
 
 	if (infileList.Contains(",")) {
@@ -223,7 +224,7 @@ Int_t ana(TString infileList, TString outputFile, Int_t nev = 1000000.)
 	printf("nEntries = %i\n", nEntries);
 	HParticleEvtChara evtChara;
 	if (!evtChara.setParameterFile(
-			"/lustre/hebe/hades/user/bkardan/param/centrality_epcorr_mar19_ag158ag_3200A_glauber_gen5_pass3_2021_08.root"))
+			"/lustre/hades/user/bkardan/param/centrality_epcorr_mar19_ag158ag_3200A_glauber_gen5_pass3_2021_08.root"))
 	{
 		cout << "HParticleEvtChara: file not found!!! " << endl;
 	}
@@ -246,10 +247,10 @@ Int_t ana(TString infileList, TString outputFile, Int_t nev = 1000000.)
 		Info("init()", "GeantKine not found - is not Simulation");
 	}
 
-	TFile * GammaAcc = new TFile("/lustre/hebe/hades/user/prozorov/include/acceptancePhiThetaMar19.root", "read");
+	TFile * GammaAcc = new TFile("/lustre/hades/user/prozorov/include/acceptancePhiThetaMar19.root", "read");
 	acceptance_mar19 = (TH2D *) GammaAcc->Get("acceptancePhiThetaMar19");
 
-	TFile * in           = new TFile("/lustre/hebe/hades/user/prozorov/include/AngleToCell.root", "read");
+	TFile * in           = new TFile("/lustre/hades/user/prozorov/include/AngleToCell.root", "read");
 	TH2D * AngleToRow    = (TH2D *) in->Get("AngleToRow");
 	TH2D * AngleToColumn = (TH2D *) in->Get("AngleToColumn");
 

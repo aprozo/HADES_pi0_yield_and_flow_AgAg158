@@ -7,6 +7,7 @@ Int_t ana(TString infileList, TString outputFile, Int_t nEvents = 10000000.)
   // -------------------------------------------------
   TROOT dst_analysis("DstAnalysisMacro", "Simple DST analysis Macro");
   HLoop * loop = new HLoop(kTRUE);
+  gHades->setBeamTimeID(HADES::kMar19);
 
 
   // -------------------------------------------------

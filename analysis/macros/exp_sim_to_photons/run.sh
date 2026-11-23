@@ -36,7 +36,8 @@ path_crash=${outputdir}/crash
 #par1=/cvmfs/hadessoft.gsi.de/install/debian8/install/5.34.34/hydra2-5.6/defall.sh
 #par1=/cvmfs/hades.gsi.de/install/5.34.34/hydra2-5.6/defall.sh
 #par1=/cvmfs/hades.gsi.de/install/6.12.06/hydra2-5.6/defall.sh
-par1=/cvmfs/hadessoft.gsi.de/install/debian10/6.24.02/hydra2-6.2/defall.sh
+par1=/cvmfs/hadessoft.gsi.de/install/debian12/6.36.02/hydra2-7.3/defall.sh
+export SLURM_SINGULARITY_CONTAINER=/cvmfs/vae.gsi.de/vae25/containers/user_container-production.sif  # Debian 12 container for debian12 hydra
 #/cvmfs/hades.gsi.de/install/5.34.34/hydra2-5.6/defall.sh # hydra release
 par2=${submissiondir}/exp_sim_to_photons                      # executable
 par3=""                                                       # input file (to be done later)

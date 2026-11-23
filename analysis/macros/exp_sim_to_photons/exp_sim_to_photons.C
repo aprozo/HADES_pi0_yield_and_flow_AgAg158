@@ -142,15 +142,6 @@ void recalibrate(HEmcCluster * cls, HCategory * emcCalCat,Float_t beamTime=80.15
 	cls->setEnergy(energySum);
 }
 
-TFile pi0PeakCorrFactorsFile("pi0PeakCorrFactors.root","read");
-TH1D * pi0PeakCorrFactors=(TH1D *)pi0PeakCorrFactorsFile->Get("pi0PeakCorrFactors");
-...
-Double_t energy = emcCluster->GetEnergy();
-energy *=pi0PeakCorrFactors->GetBinContent(sector*163+cell+1); //cell is from 0 to 162 
-emcCluster->setEnergy(energy);
-}
-
-
 
 typedef struct {
 	Float_t newEvent, multTofRpc, multEmc, multPhoton, centBin,
@@ -197,6 +188,7 @@ Int_t exp_sim_to_photons(TString infileList, TString outputFile, Bool_t isExperi
 
 	GlobalParameters par("../parameters.conf");
 	HLoop  loop(kTRUE);// create HADES (needed if one wants to use gHades)
+	gHades->setBeamTimeID(HADES::kMar19);
 	Bool_t ret = kFALSE;
 	if (infileList.Contains(",")) {
 		ret = loop.addMultFiles(infileList); // file1,file2,file3
@@ -324,7 +316,7 @@ Int_t exp_sim_to_photons(TString infileList, TString outputFile, Bool_t isExperi
 
 	HParticleEvtChara evtChara;
 	if (!evtChara.setParameterFile(
-			"/lustre/hebe/hades/user/bkardan/param/centrality_epcorr_mar19_ag158ag_3200A_glauber_gen5_pass3_2021_08.root"))
+			"/lustre/hades/user/bkardan/param/centrality_epcorr_mar19_ag158ag_3200A_glauber_gen5_pass3_2021_08.root"))
 	{
 		cout << "HParticleEvtChara: file not found!!! " << endl;
 	}

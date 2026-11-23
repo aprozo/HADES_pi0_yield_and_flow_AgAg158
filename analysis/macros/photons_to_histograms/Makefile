@@ -1,6 +1,6 @@
 APP_NAME      := photons_to_histograms
 
-CPP_FLAGS     += -std=c++14
+CPP_FLAGS     += -std=c++17
 
 SOURCE_FILES  := main.cc
 USES_RFIO     := no

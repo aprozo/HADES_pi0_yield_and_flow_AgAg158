@@ -142,7 +142,7 @@ TH1D * correction = NULL;
 public:
 EcalMap()
 {
-	setupSimEffCorr("/lustre/hebe/hades/user/prozorov/include/simCorrEnergyEcal.root");
+	setupSimEffCorr("/lustre/hades/user/prozorov/include/simCorrEnergyEcal.root");
 }
 
 void InitializeEcalCandMatching(HCategory * candCat, HCategory * EmcClusterCat, Double_t EcalMatchCut = 10)

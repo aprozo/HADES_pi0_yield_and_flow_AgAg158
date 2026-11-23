@@ -70,7 +70,7 @@ void fill_hists_diphoton(TString inFile, TString outputFile, Int_t iteration = 0
   eventmixer.setBuffSize(30);
 
   TFile * fCorr = new TFile(
-    "/lustre/hebe/hades/user/prozorov/mar19/systematic_uncertainty/correction_data/NonlinearityPi0PeakEnergyCorrection.root", "READ");
+    "/lustre/hades/user/prozorov/mar19/systematic_uncertainty/correction_data/NonlinearityPi0PeakEnergyCorrection.root", "READ");
   hEnergyCorrection = (TH1D *) fCorr->Get("hEnergyCorrection");
 
   TFile * betaCuts;
@@ -79,7 +79,7 @@ void fill_hists_diphoton(TString inFile, TString outputFile, Int_t iteration = 0
   TH2F * betaEnergySigma[nBeamBins];
 
   betaCuts = new TFile(
-    "/lustre/hebe/hades/user/prozorov/mar19/systematic_uncertainty/correction_data/betaBeamMeanSigma.root", "Read");
+    "/lustre/hades/user/prozorov/mar19/systematic_uncertainty/correction_data/betaBeamMeanSigma.root", "Read");
   for (Int_t iBeamBin = 0; iBeamBin < nBeamBins; iBeamBin++) {
     betaEnergyMean[iBeamBin]  = (TH2F *) betaCuts->Get(Form("beam%ibetaEnergyMean", iBeamBin));
     betaEnergySigma[iBeamBin] = (TH2F *) betaCuts->Get(Form("beam%ibetaEnergySigma", iBeamBin));

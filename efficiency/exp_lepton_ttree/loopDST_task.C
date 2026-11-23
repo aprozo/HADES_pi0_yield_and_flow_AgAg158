@@ -79,6 +79,7 @@ Int_t loopDST_task( TString infileList,TString outfile,Int_t nEvents)
 	//-------------------------------------------------
 	// create loop obejct and hades
 	HLoop loop(kTRUE);
+	gHades->setBeamTimeID(HADES::kMar19);
 	//-------------------------------------------------
 
 	//-------------------------------------------------
@@ -250,7 +251,7 @@ Int_t loopDST_task( TString infileList,TString outfile,Int_t nEvents)
 
 	HParticleEvtChara evtChara;
   if (!evtChara.setParameterFile(
-      "/lustre/hebe/hades/user/bkardan/param/centrality_epcorr_mar19_ag158ag_3200A_glauber_gen5_pass3_2021_08.root"))
+      "/lustre/hades/user/bkardan/param/centrality_epcorr_mar19_ag158ag_3200A_glauber_gen5_pass3_2021_08.root"))
   {
     cout << "HParticleEvtChara: file not found!!! " << endl;
   }

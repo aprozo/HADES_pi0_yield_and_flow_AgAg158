@@ -144,6 +144,8 @@
 #include <map>
 #include <vector>
 #include <deque>
+#include <utility>
+using std::pair; using std::make_pair;
 
 //ROOT headers
 

@@ -24,32 +24,33 @@ user=$(whoami)
 currentDir=$(pwd)
 day=${1}
 
-submmissionbase=/lustre/hebe/hades/user/${user}/sub/diphotons/gen5a
+submmissionbase=/lustre/hades/user/${user}/sub/diphotons/gen5a
 submissiondir=${submmissionbase}/dstAnalysis
 nFilesPerJob=10 # for SIM or EXP extract
 jobscript=${submissiondir}/jobScript_SL.sh                        # exec script (full path, call without dot, set it executable!)
-outputdir=/lustre/hebe/hades/user/${user}/mar19/gen5/photon_ttree/day${day}   # outputdir for files AND logFiles
+outputdir=/lustre/hades/user/${user}/mar19/gen5/photon_ttree/day${day}   # outputdir for files AND logFiles
 
 #filelist=${currentDir}/lists/day_${day}_ag158ag_3200A_accepted.list
                                # protocol from batch farm for each file
                                 # filename of log file if nFilesPerJob > 1 (partnumber will be appended)
 
 if [ "$day" = "embsim" ]; then
-    outputdir=/lustre/hebe/hades/user/${user}/mar19/gen5/embeddingSim
+    outputdir=/lustre/hades/user/${user}/mar19/gen5/embeddingSim
     nFilesPerJob=25
     filelist=${currentDir}/lists/pi0ggSim.list
     filename=embeddingSim
 fi
 
 if [ "$day" = "emb" ]; then
-    outputdir=/lustre/hebe/hades/user/${user}/mar19/gen5/embeddingExp073
+    outputdir=/lustre/hades/user/${user}/mar19/gen5/embeddingExp073
     filelist=${currentDir}/lists/pi0ggEmbeddingExp.list
     filename=embeddingExp
 fi
 
 
 jobarrayFile="jobarray_${day}.dat"
-par1=/cvmfs/hadessoft.gsi.de/install/debian10/6.24.02/hydra2-6.2/defall.sh  # optional par1 : environment script
+par1=/cvmfs/hadessoft.gsi.de/install/debian12/6.36.02/hydra2-7.3/defall.sh  # optional par1 : environment script
+export SLURM_SINGULARITY_CONTAINER=/cvmfs/vae.gsi.de/vae25/containers/user_container-production.sif  # Debian 12 container for debian12 hydra
 par2=${submissiondir}/loopDST                          # optional par2 : executable
 par3=""                                                         # optional par3 : input file list
 par4=${outputdir}                                               # optional par4 : outputfile (part number will be appended (_num.root))

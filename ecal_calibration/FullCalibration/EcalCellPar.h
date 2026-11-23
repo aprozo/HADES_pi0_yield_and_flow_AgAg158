@@ -4,6 +4,8 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <string>
+using namespace std;
 
 struct Params {
   Double_t tdc0 = 1, tdc1 = 0;

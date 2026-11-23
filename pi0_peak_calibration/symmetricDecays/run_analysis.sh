@@ -2,7 +2,7 @@
 
 
 currentDir=$(pwd)
-path2files="/lustre/hebe/hades/user/prozorov/mar19/diphotons/pi0PeakCalibration/symmetricDecays/"
+path2files="/lustre/hades/user/prozorov/mar19/diphotons/pi0PeakCalibration/symmetricDecays/"
 filename="MixAll"
 sOut="pi0PeakHists.root"
 make

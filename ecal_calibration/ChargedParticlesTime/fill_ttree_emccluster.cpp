@@ -76,6 +76,7 @@ void analysis(TString inFile, TString outputFile, Int_t nev = 1000000.)
 {
 	Bool_t createHades = kTRUE; // kFALSE;  // kTRUE = create HADES new
 	HLoop loop(createHades);  // kTRUE : create Hades  (needed to work with standard eventstructure)
+	gHades->setBeamTimeID(HADES::kMar19);
 
 	// -------------------------------------------------
 	// setup the spectrometer for filter tasks
