@@ -716,7 +716,7 @@ void makeFlowAnalysis(TString inputfile, TString outputfile)
         // integrate histograms in pt
         for (Int_t phi = 0; phi < phiBins; phi++) {
           TH1F * All = (TH1F *) in->Get(Form("All/phi%i", phi) + hName);
-          TH1F * Cb  = (TH1F *) in->Get(Form("All/phi%i", phi) + hName);
+          TH1F * Cb  = (TH1F *) in->Get(Form("Mix/phi%i", phi) + hName);
           if (pt == 0) {
             AllIntegratedPt[phi] = (TH1F *) All->Clone(Form("Allphi%iy%icent%i", phi, y, cent));
             CbIntegratedPt[phi]  = (TH1F *) Cb->Clone(Form("Cbphi%iy%icent%i", phi, y, cent));

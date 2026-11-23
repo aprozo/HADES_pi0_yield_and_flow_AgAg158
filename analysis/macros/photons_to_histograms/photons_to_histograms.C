@@ -31,7 +31,7 @@ void correctNonlinearity(Float_t & energy)
 	Double_t corr;
 
 	if (energy < 110) corr = hEnergyCorrection->Interpolate(110);
-	if (energy > 640) corr = hEnergyCorrection->Interpolate(640);
+	else if (energy > 640) corr = hEnergyCorrection->Interpolate(640);
 	else corr = hEnergyCorrection->Interpolate(energy);
 	energy *= corr;
 }

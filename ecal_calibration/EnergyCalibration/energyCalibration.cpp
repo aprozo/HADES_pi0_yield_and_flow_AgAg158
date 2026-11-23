@@ -85,7 +85,7 @@ public:
   {
     totDot = TotThreshold;
     TString fitFuncEnergy2Par =
-      (TString) Form("20 + [0] + exp([1]) *( exp([2] * x) - exp([2]* %.d) )", TotThreshold);
+      (TString) Form("20 + [0] + exp([1]) *( exp([2] * x) - exp([2]* %.2f) )", TotThreshold);
     fitEnergy = new TF1(name + "fitEnergy", fitFuncEnergy2Par, 200, 1500);
     fitEnergy->SetParLimits(0, -10, 5);
     fitEnergy->SetParLimits(1, 0, 10);

@@ -118,7 +118,7 @@ struct Diphoton {
     y       = pairMix.Rapidity() - 0.822;// correct to midrapidity
     pt      = pairMix.Pt();
     centBin = gamma1.centBin;
-    weight  = 1./gamma1.weight * gamma2.weight;
+    weight  = gamma1.weight * gamma2.weight;
     accEffCorrection = 1.;// / getAcceptanceEfficiency(y, pt, centBin);
     weight_err2      = TMath::Power(gamma1.weight * gamma2.weight_err, 2) + TMath::Power(
       gamma1.weight_err * gamma2.weight, 2);
@@ -375,7 +375,7 @@ void HistogramManager::Hfill(const Diphoton & diphot)
     if (invmass > MassMin && invmass < MassMax) error = massIntegrated[centBin]->GetBinError(binGGmass);
     error *= error;
     massIntegrated[centBin]->Fill(invmass, weight);
-    massIntegrated[centBin]->SetBinError(invmass, TMath::Sqrt(error + weight_err2));
+    massIntegrated[centBin]->SetBinError(binGGmass, TMath::Sqrt(error + weight_err2));
   }
 
 

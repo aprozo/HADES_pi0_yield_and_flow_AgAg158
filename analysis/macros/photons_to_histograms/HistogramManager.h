@@ -387,7 +387,7 @@ void HistogramManager::Hfill(const Diphoton & diphot)
 		if (invmass > MassMin && invmass < MassMax) error = massIntegrated[centBin]->GetBinError(binGGmass);
 		error *= error;
 		massIntegrated[centBin]->Fill(invmass, weight);
-		massIntegrated[centBin]->SetBinError(invmass, TMath::Sqrt(error + weight_err2));
+		massIntegrated[centBin]->SetBinError(binGGmass, TMath::Sqrt(error + weight_err2));
 	}
 
 	if (centBin >= 0 && centBin < centBins &&
@@ -398,7 +398,7 @@ void HistogramManager::Hfill(const Diphoton & diphot)
 		error  = mass[centBin][ptBin][yBin]->GetBinError(massBin);
 		error *= error;
 		mass[centBin][ptBin][yBin]->Fill(invmass, weight);
-		mass[centBin][ptBin][yBin]->SetBinError(invmass, TMath::Sqrt(error + weight_err2));
+		mass[centBin][ptBin][yBin]->SetBinError(massBin, TMath::Sqrt(error + weight_err2));
 		if (diphot.isPi0) {
 			massPi0[centBin][ptBin][yBin]->Fill(invmass, weight);
 		}
